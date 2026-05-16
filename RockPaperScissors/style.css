@@ -1,0 +1,91 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1{
+    background-color:#081b31;
+    color:white;
+    height: auto;
+    text-align: center;
+    line-height: 5rem;
+}
+
+.choice{
+    height: 165px;
+    width: 165px;
+    border-radius: 50%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+img{
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.choice:hover{
+   
+    cursor: pointer;
+    background-color:rgb(4, 1, 35);
+}
+
+#restart:hover{
+    cursor: pointer;
+    background-color: rgb(14, 1, 1);
+    color:white;
+}
+.choices{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    gap:3rem;
+    margin-top:5rem;
+
+}
+.Score-Board{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    gap: 5rem;
+    margin-top: 3rem;
+}
+
+#user-score, #computer-score{
+    font-size: 4rem;
+  
+}
+
+.msg_container{
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#msg{
+    text-align: center;
+    font-size: 2rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: aliceblue;
+    background-color: rgb(10, 3, 79);
+    display: inline;
+    padding: 1rem;
+    border-radius: 10;
+}
+
+#restart{
+    text-align:center;
+    font-size: 2rem;
+    background-color: red;
+    border-radius:10px; display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:2rem;
+
+}
