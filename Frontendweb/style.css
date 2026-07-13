@@ -44,7 +44,7 @@
 
 
 
-/* Hero Heading */
+/* Heading */
 .heading {
   background-image: url("images/heading.jpg");
   background-size: cover;
@@ -137,19 +137,19 @@
 }
 .description {
   font-size: 0.9rem;
-  color: #555;          /* softer gray text */
-  margin: 5px 0;        /* spacing around description */
+  color: #555;         
+  margin: 5px 0;        
 }
 .buy-btn {
-  background-color: red;       /* bold red button */
-  color: white;                /* white text */
-  border: none;                /* remove default border */
-  padding: 8px 15px;           /* space inside button */
-  margin-top: 10px;            /* space above button */
-  border-radius: 4px;          /* rounded corners */
+  background-color: red;       
+  color: white;                
+  border: none;                
+  padding: 8px 15px;           
+  margin-top: 10px;            
+  border-radius: 4px;          
   font-size: 0.9rem;
   font-weight: bold;
-  cursor: pointer;             /* pointer cursor on hover */
+  cursor: pointer;             
   transition: background-color 0.3s;
 }
 
