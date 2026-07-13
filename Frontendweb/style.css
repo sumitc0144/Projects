@@ -1,13 +1,32 @@
 /* Header */
-#head {
-  background-color: #f0eded;
+.head {
+  background-color: #f5eded;
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
   font-family: 'Montserrat', sans-serif;
   padding: 15px 0;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content: center;
+  position:relative;
+  padding-bottom:10px;
+}
+.name {
+  text-align: center;
+}
+.login-btn {
+  position: absolute;
+  right: 20px;
+  padding-bottom: 12px;
+  
+              
 }
 
+.login-btn:hover{
+  background-color: red;
+}
 /* Navbar */
 .navbar {
   background-color: #f0eded;
@@ -96,10 +115,12 @@
 /* Products */
 .product {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, 200px); 
   gap: 20px;
+  justify-content: center; 
   padding: 20px;
 }
+
 
 .product div {
   background: #fff;
