@@ -53,3 +53,13 @@ button {
 button:hover {
   background: #0056b3;
 }
+
+.contact {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 8px;
+  width: 400px;
+}
+.contact h1{
+  text-align: center;
+}
