@@ -3,4 +3,4 @@ app=Flask(__name__)
 
 @app.route('/')
 def hello():
-    return "HELLO WORLD:"
+    return "<h1>HOME PAGE</h1>"
