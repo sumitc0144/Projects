@@ -42,7 +42,12 @@ def register():
 def login():
     form=LoginForm()
     if form.validate_on_submit():
-        return f'Login successful for {form.email.data}!'
+        if form.email.data=='user@gmail.com' and form.password.data=='password':
+            flash('You have been logged in!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Login Unsuccessful. Please check email and password', 'danger')
+        #return f'Login successful for {form.email.data}!'
     return render_template('login.html',title='Login',form=form)
 
 if __name__=="__main__":
