@@ -1,51 +1,59 @@
-from flask import render_template,url_for,flash,redirect
-from flaskblog.Forms import RegistrationForm,LoginForm
-from flaskblog import app
+from flask import render_template, url_for, flash, redirect
+from flaskblog.Forms import RegistrationForm, LoginForm
+from flaskblog import app, db, bcrypt
 
-from flaskblog.models import User,Post
+from flaskblog.models import User, Post
 
-posts=[
+posts = [
     {
-        'author':'John Doe',
-        'title':'Blog Post 1',
-        'content':'First post content',
-        'date_posted':'April 20,2024'
+        "author": "John Doe",
+        "title": "Blog Post 1",
+        "content": "First post content",
+        "date_posted": "April 20,2024",
     },
     {
-        'author':'Jane Smith',
-        'title':'Blog Post 2',
-        'content':'Second post content',
-        'date_posted':'April 21,2024'
-    }
+        "author": "Jane Smith",
+        "title": "Blog Post 2",
+        "content": "Second post content",
+        "date_posted": "April 21,2024",
+    },
 ]
 
-@app.route('/')
-@app.route('/home')
+
+@app.route("/")
+@app.route("/home")
 def home():
-    return render_template('home.html', posts=posts)
+    return render_template("home.html", posts=posts)
 
-@app.route('/about')
+
+@app.route("/about")
 def about():
-    return render_template('about.html',title="ABOUT"
-    "")
+    return render_template("about.html", title="ABOUT")
 
-@app.route('/register',methods=['GET','POST'])
+
+@app.route("/register", methods=["GET", "POST"])
 def register():
-    form=RegistrationForm()
+    form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Account created for {form.username.data}!', 'success')
-        return redirect(url_for('home'))
-    return render_template('register.html',title='Register',form=form)
+        hashed_pw = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
+        user = User(
+            username=form.username.data, email=form.email.data, password=hashed_pw
+        )
+        db.session.add(user)
+        db.session.commit()
+        flash("Your account has been created! You are now able to log in", "success")
+        return redirect(url_for("login"))
+    return render_template("register.html", title="Register", form=form)
 
-@app.route('/login',methods=['GET','POST'])
+
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    form=LoginForm()
+    form = LoginForm()
     if form.validate_on_submit():
-        if form.email.data=='user@gmail.com' and form.password.data=='password':
-            flash('You have been logged in!', 'success')
-            return redirect(url_for('home'))
+        if form.email.data == "user@gmail.com" and form.password.data == "password":
+            flash("You have been logged in!", "success")
+            return redirect(url_for("home"))
         else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
-        #return f'Login successful for {form.email.data}!'
-    return render_template('login.html',title='Login',form=form)
-
+            flash("Login Unsuccessful. Please check email and password", "danger")
+        # return f'Login successful for {form.email.data}!'
+    return render_template("login.html", title="Login", form=form)
