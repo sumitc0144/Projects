@@ -75,10 +75,10 @@ def save_picture(form_picture):
 
     # Resize the image to a maximum of 125x125 pixels while maintaining the aspect ratio.
     output_size = (125, 125)
-    i=Image.open(form_picture)
+    i = Image.open(form_picture)
     i.thumbnail(output_size)
 
-    #form_picture.save(picture_path)
+    # form_picture.save(picture_path)
     i.save(picture_path)
     return picture_fn
 
@@ -105,22 +105,26 @@ def account():
         "account.html", title="Account", image_file=image_file, form=form
     )
 
+
 @app.route("/post/new", methods=["GET", "POST"])
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        post = Post(
+            title=form.title.data, content=form.content.data, author=current_user
+        )
         db.session.add(post)
         db.session.commit()
         flash("Your post has been created!", "success")
         return redirect(url_for("home"))
     return render_template("create_post.html", title="New Post", form=form)
 
-#The <post_id> part means the URL will include a variable (like /post/5),
-#and Flask will pass that value into the function as the post_id parameter.
+
+# The <post_id> part means the URL will include a variable (like /post/5),
+# and Flask will pass that value into the function as the post_id parameter.
 @app.route("/post/<post_id>")
 def post(post_id):
     # If it doesn’t exist → Flask automatically returns a 404 error page.
     post = Post.query.get_or_404(post_id)
-    # If the post exists → it returns the post object.  
+    # If the post exists → it returns the post object.
     return render_template("post.html", title=post.title, post=post)
