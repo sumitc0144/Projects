@@ -131,6 +131,7 @@ def post(post_id):
     # If the post exists → it returns the post object.
     return render_template("post.html", title=post.title, post=post)
 
+
 @app.route("/post/<int:post_id>/update", methods=["GET", "POST"])
 @login_required
 def update_post(post_id):
@@ -150,6 +151,8 @@ def update_post(post_id):
     return render_template(
         "create_post.html", title="Update Post", form=form, legend="Update Post"
     )
+
+
 @app.route("/post/<int:post_id>/delete", methods=["POST"])
 @login_required
 def delete_post(post_id):
@@ -160,4 +163,3 @@ def delete_post(post_id):
     db.session.commit()
     flash("Your post has been deleted!", "success")
     return redirect(url_for("home"))
-
