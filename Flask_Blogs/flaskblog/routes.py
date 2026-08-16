@@ -117,7 +117,9 @@ def new_post():
         db.session.commit()
         flash("Your post has been created!", "success")
         return redirect(url_for("home"))
-    return render_template("create_post.html", title="New Post", form=form, legend="New Post")
+    return render_template(
+        "create_post.html", title="New Post", form=form, legend="New Post"
+    )
 
 
 # The <post_id> part means the URL will include a variable (like /post/5),
@@ -129,8 +131,8 @@ def post(post_id):
     # If the post exists → it returns the post object.
     return render_template("post.html", title=post.title, post=post)
 
-
-@app.route("/post/<int:post_id>/update>", methods=["GET", "POST"])
+@app.route("/post/<int:post_id>/update", methods=["GET", "POST"])
+@login_required
 def update_post(post_id):
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
@@ -145,4 +147,17 @@ def update_post(post_id):
     elif request.method == "GET":
         form.title.data = post.title
         form.content.data = post.content
-    return render_template("create_post.html", title="Update Post", form=form, legend="Update Post")
+    return render_template(
+        "create_post.html", title="Update Post", form=form, legend="Update Post"
+    )
+@app.route("/post/<int:post_id>/delete", methods=["POST"])
+@login_required
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash("Your post has been deleted!", "success")
+    return redirect(url_for("home"))
+
