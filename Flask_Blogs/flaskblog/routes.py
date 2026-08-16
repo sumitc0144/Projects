@@ -115,3 +115,12 @@ def new_post():
         flash("Your post has been created!", "success")
         return redirect(url_for("home"))
     return render_template("create_post.html", title="New Post", form=form)
+
+#The <post_id> part means the URL will include a variable (like /post/5),
+#and Flask will pass that value into the function as the post_id parameter.
+@app.route("/post/<post_id>")
+def post(post_id):
+    # If it doesn’t exist → Flask automatically returns a 404 error page.
+    post = Post.query.get_or_404(post_id)
+    # If the post exists → it returns the post object.  
+    return render_template("post.html", title=post.title, post=post)
