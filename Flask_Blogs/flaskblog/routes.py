@@ -11,7 +11,13 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route("/")
 @app.route("/home")
 def home():
-    posts = Post.query.all()
+    # Paginate query results:
+    # paginate() returns a Pagination object, not just a list.
+    # - .items → actual posts for the current page
+    # - .iter_pages() → generates page numbers for navigation links
+    # - .has_next / .has_prev → check if more pages exist
+    page = request.args.get("page", 1, type=int)
+    posts = Post.query.paginate(per_page=5, page=page)
     return render_template("home.html", posts=posts)
 
 
