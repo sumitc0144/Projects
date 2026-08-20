@@ -2,7 +2,15 @@ import os
 import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
-from flaskblog.Forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
+from Flask_Blogs.flaskblog import posts
+from flaskblog.Forms import (
+    RegistrationForm,
+    LoginForm,
+    UpdateAccountForm,
+    PostForm,
+    RequestResetForm,
+    ResetPasswordForm,
+)
 from flaskblog import app, db, bcrypt
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
@@ -181,3 +189,11 @@ def user_posts(username):
         .paginate(per_page=5, page=page)
     )
     return render_template("user_posts.html", posts=posts, user=user)
+
+@app.route("/reset_password",method=['GET','POST'])
+def reset_request():
+    if current_user.is_authenticated:
+            return redirect(url_for("home"))
+    form=RequestResetForm()
+    return render_template("reset_request.html", title='Reset Password',form=form)
+    
