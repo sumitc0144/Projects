@@ -194,6 +194,15 @@ def user_posts(username):
 def reset_request(token):
     if current_user.is_authenticated:
         return redirect(url_for("home"))
-    form = RequestResetForm()
-    return render_template("reset_request.html", title='Reset Password', form=form)
-    
+    user=User.verify_reset_token(token)
+    if user is None:
+        flash('That is not a valid or expired token.', 'warning')
+        return redirect(url_for("reset_request"))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password = hashed_password
+        db.session.commit()
+        flash('Your password has been updated!', 'success')
+        return redirect(url_for("login"))
+    return render_template("reset_token.html", title='Reset Password', form=form)
