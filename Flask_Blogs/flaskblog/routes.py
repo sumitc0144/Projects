@@ -194,7 +194,7 @@ def user_posts(username):
 def reset_request(token):
     if current_user.is_authenticated:
         return redirect(url_for("home"))
-    user=User.verify_reset_token(token)
+    user = User.verify_reset_token(token)
     if user is None:
         flash('That is not a valid or expired token.', 'warning')
         return redirect(url_for("reset_request"))
