@@ -190,10 +190,10 @@ def user_posts(username):
     )
     return render_template("user_posts.html", posts=posts, user=user)
 
-@app.route("/reset_password",method=['GET','POST'])
-def reset_request():
+@app.route("/reset_password/<token>", methods=['GET', 'POST'])
+def reset_request(token):
     if current_user.is_authenticated:
-            return redirect(url_for("home"))
-    form=RequestResetForm()
-    return render_template("reset_request.html", title='Reset Password',form=form)
+        return redirect(url_for("home"))
+    form = RequestResetForm()
+    return render_template("reset_request.html", title='Reset Password', form=form)
     
