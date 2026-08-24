@@ -14,6 +14,7 @@ from flaskblog.Forms import (
 from flaskblog import app, db, bcrypt, mail
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_mail import Message
 
 
 @app.route("/")
@@ -192,7 +193,17 @@ def user_posts(username):
 
 
 def send_reset_email(user):
-    pass
+    token = user.get_reset_token()
+    msg = Message(
+        "Password Reset Request",
+        sender="noreply@blog.com",
+        recipients=[user.email]
+    )
+    msg.body = f"""To reset your password, visit the following link:
+{url_for('reset_token', token=token, _external=True)}
+
+If you did not make this request then simply ignore this email and no changes will be made.
+"""
 
 
 @app.route("/reset_password", methods=["GET", "POST"])
