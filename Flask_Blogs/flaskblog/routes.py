@@ -1,3 +1,4 @@
+from email.message import Message
 import os
 import secrets
 from PIL import Image
@@ -189,6 +190,10 @@ def user_posts(username):
         .paginate(per_page=5, page=page)
     )
     return render_template("user_posts.html", posts=posts, user=user)
+
+def send_reset_email(user):
+    pass
+   
 
 @app.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
