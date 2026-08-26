@@ -1,27 +1,24 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt  # Password Hashing with Flask-Bcrypt
-from flask_login import LoginManager  # User Session Management with Flask-Login
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 from flask_mail import Mail
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
+app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
-login_manager.login_view = "login"
-login_manager.login_message_category = "info"
-app.config["MAIL_SERVER"] = "smtp.gmail.com"
-app.config["MAIL_PORT"] = 587
-app.config["MAIL_USE_TLS"] = True
-app.config["MAIL_USERNAME"] = os.environ.get("EMAIL_USER")
-app.config["MAIL_PASSWORD"] = os.environ.get("EMAIL_PASSWORD")
-app.config["MAIL_DEFAULT_SENDER"] = "sumitc0144@gmail.com"
-
-print("MAIL_DEFAULT_SENDER:", app.config["MAIL_DEFAULT_SENDER"])
-
-
+login_manager.login_view = 'login'
+login_manager.login_message_category = 'info'
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.environ.get('EMAIL_USER')
+app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
 mail = Mail(app)
+print("MAIL_USERNAME:", app.config['MAIL_USERNAME'])
+print("MAIL_PASSWORD:", app.config['MAIL_PASSWORD'])
 from flaskblog import routes
