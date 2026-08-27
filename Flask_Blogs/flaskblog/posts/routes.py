@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-posts = Blueprint('users', __name__)
+posts = Blueprint('posts', __name__)
 
 
 
